@@ -18,6 +18,8 @@ void jouer(SDL_Surface *ecran)
     SDL_Surface *perso_actuel;
     SDL_Rect position_perso;
     SDL_Rect position_relative;
+    position_relative.x = 0;
+    position_relative.y = 0;
     position_perso.x = 0;
     position_perso.y = 0;
 
@@ -36,6 +38,7 @@ void jouer(SDL_Surface *ecran)
     char se_deplace = FALSE;
     char jump = FALSE;
     char direction = DROITE;
+    char indice_image = 0;
     short state_deplacement = 0;
     char niveau[MAP_WIDTH][MAP_HEIGHT] = {0};
 
@@ -94,8 +97,6 @@ void jouer(SDL_Surface *ecran)
                         break;
 
                     case SDLK_SPACE:
-                        if(!jump)
-                            position_relative.y = (-0.04 * (position_relative.x * position_relative.x));
                         se_deplace = TRUE;
                         jump = TRUE;
                         break;
@@ -178,12 +179,35 @@ void jouer(SDL_Surface *ecran)
             /// gravité active sur le personnage
             gravity_fall(&position_perso, niveau);
             position_relative.y = 0;
+            position_relative.x = -50;
         }
         else if(jump == TRUE)
         {
             /// saut du personnage
-            position_relative.y = (-0.04 * (position_relative.x * position_relative.x));
-            position_perso.y = position_perso.y - position_relative.y;
+            position_relative.x++;
+
+            position_relative.y = (-0.04 * (position_relative.x * position_relative.x) + 50) - position_relative.y;
+
+            if(position_relative.x >= 50)
+                jump = FALSE;
+
+            if (direction == GAUCHE)
+                position_perso.x--;
+            if (direction == DROITE)
+                position_perso.x++;
+
+            if (position_perso.x < 0)
+            {
+                position_perso.x = 0;
+                jump = FALSE;
+            }
+            if (position_perso.x > LARGEUR_FENETRE - TILE_SIZE)
+            {
+                position_perso.x = LARGEUR_FENETRE - TILE_SIZE;
+                jump = FALSE;
+            }
+
+            position_perso.y -= position_relative.y;
             if(position_relative.y == 0)
                 jump = FALSE;
         }
@@ -194,7 +218,8 @@ void jouer(SDL_Surface *ecran)
         /// affichage du personnage
         if(se_deplace == TRUE)
         {
-            char indice_image = state_deplacement % 3 + 2;
+            if (state_deplacement % 10 == 0)
+                indice_image = state_deplacement % 3 + 1;
             perso_actuel = persos[indice_image][direction];
         }
         else
