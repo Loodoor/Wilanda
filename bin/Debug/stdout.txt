@@ -1,1 +1,174 @@
-Creation de la fenetreLancement du jeu
+Creation de la fenetre
+Lancement du jeu
+Creation des surfaces et des rect
+Chargement du personnage
+Chargement des tiles
+Creation des variables de jeu
+Creation du niveau
+Enregistrement de la carte
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Prend un coin bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pose un bloc
+Pos

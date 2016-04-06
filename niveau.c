@@ -5,7 +5,7 @@
 #include "niveau.h"
 #include "constantes.h"
 
-char blocs_jeu[6] = {0, 1, 1, 1, 0, 0};
+char blocs_jeu[6] = {0, 1, 1, 1, 0, 0, 1};
 
 void creerNiveau(char niveau[][MAP_HEIGHT])
 {
@@ -15,11 +15,14 @@ void creerNiveau(char niveau[][MAP_HEIGHT])
         {
             niveau[i][j] = VIDE;
 
-            if(j == MAP_HEIGHT - 4)
+            if(j == MAP_HEIGHT - 8)
                 niveau[i][j] = GRASS;
 
-            if (j >= MAP_HEIGHT - 3)
+            if (j >= MAP_HEIGHT - 7)
                 niveau[i][j] = DIRT;
+
+            if (j >= MAP_HEIGHT - 5)
+                niveau[i][j] = STONE;
 
             if(j == 0 && i % 5 == 0)
                 niveau[i][j] = LAVA;
@@ -29,7 +32,11 @@ void creerNiveau(char niveau[][MAP_HEIGHT])
     fprintf(stdout, "Enregistrement de la carte\n");
 
     /// on enregistre la carte !
-    char caractere = "0";
+    sauvegarderNiveau(niveau);
+}
+
+void sauvegarderNiveau(char niveau[][MAP_HEIGHT])
+{
     FILE* ecrire_carte = NULL;
     ecrire_carte = fopen("assets/Maps/map.txt", "w");
 
@@ -40,51 +47,29 @@ void creerNiveau(char niveau[][MAP_HEIGHT])
             fprintf(ecrire_carte, "%d", niveau[k][l]);
         }
     }
+    fclose(ecrire_carte);
 }
 
-void chargerNiveau(char *niveau[][MAP_HEIGHT])
+void chargerNiveau(char niveau[][MAP_HEIGHT])
 {
     FILE* fichier = NULL;
     char ligneFichier[MAP_WIDTH * MAP_HEIGHT + 1] = {""};
 
-    fichier = fopen("assests/Maps/map.txt", "r");
+    fichier = fopen("content/Maps/map.txt", "r");
     if (fichier == NULL)
         return 0;
 
     /// lecture du fichier
     fgets(ligneFichier, MAP_WIDTH * MAP_HEIGHT + 1, fichier);
 
+    int start_char = '0';
+
     /// création de la carte
     for(int i=0; i < MAP_WIDTH; i++)
     {
         for(int j=0; j < MAP_HEIGHT; j++)
         {
-            switch(ligneFichier[(i * MAP_WIDTH) + j])
-            {
-                case '0':
-                    niveau[i][j] = VIDE;
-                    break;
-
-                case '1':
-                    niveau[i][j] = DIRT;
-                    break;
-
-                case '2':
-                    niveau[i][j] = COIN_BLOC;
-                    break;
-
-                case '3':
-                    niveau[i][j] = GRASS;
-                    break;
-
-                case '4':
-                    niveau[i][j] = LAVA;
-                    break;
-
-                case '5':
-                    niveau[i][j] = WATER;
-                    break;
-            }
+            niveau[i][j] = ligneFichier[(i * MAP_WIDTH) + j] - start_char;
         }
     }
     fclose(fichier);

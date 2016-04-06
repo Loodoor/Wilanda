@@ -12,6 +12,7 @@
 #define GRASS 3
 #define LAVA 4
 #define WATER 5
+#define STONE 6
 
 #define TILE_SIZE 16
 #define MAP_WIDTH 40

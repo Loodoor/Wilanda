@@ -4,39 +4,33 @@
 
 #include "constantes.h"
 #include "niveau.h"
+#include "assets.h"
 #include "jeu.h"
 
 void jouer(SDL_Surface *ecran)
 {
     /// variables
     /// SDL
+    fprintf(stdout, "Creation des surfaces et des rect\n");
     SDL_Event event;
     SDL_Surface *persos[4][2];
-    SDL_Surface *blocs[6];
+    SDL_Surface *blocs[7];
     SDL_Surface *perso_actuel;
-    SDL_Rect *position_perso;
+    SDL_Rect position_perso;
     SDL_Rect position_relative;
-    position_perso->x = 0;
-    position_perso->y = 0;
-    fprintf(stdout, "Creation des surfaces et des rect\n");
-    persos[0][GAUCHE] = SDL_LoadBMP("assets/Personnage/LEFT/normal.bmp");
-    persos[1][GAUCHE] = SDL_LoadBMP("assets/Personnage/LEFT/start.bmp");
-    persos[2][GAUCHE] = SDL_LoadBMP("assets/Personnage/LEFT/middle.bmp");
-    persos[3][GAUCHE] = SDL_LoadBMP("assets/Personnage/LEFT/end.bmp");
-    persos[0][DROITE] = SDL_LoadBMP("assets/Personnage/RIGHT/normal.bmp");
-    persos[1][DROITE] = SDL_LoadBMP("assets/Personnage/RIGHT/start.bmp");
-    persos[2][DROITE] = SDL_LoadBMP("assets/Personnage/RIGHT/middle.bmp");
-    persos[3][DROITE] = SDL_LoadBMP("assets/Personnage/RIGHT/end.bmp");
+    position_perso.x = 0;
+    position_perso.y = 0;
+
     fprintf(stdout, "Chargement du personnage\n");
-    blocs[VIDE] = SDL_LoadBMP("assets/Tiles/air.bmp");
-    blocs[DIRT] = SDL_LoadBMP("assets/Tiles/sand_bloc.bmp");
-    blocs[COIN_BLOC] = SDL_LoadBMP("assets/Tiles/coin_bloc.bmp");
-    blocs[GRASS] = SDL_LoadBMP("assets/Tiles/grass_bloc.bmp");
-    blocs[LAVA] = SDL_LoadBMP("assets/Tiles/lava_bloc.bmp");
-    blocs[WATER] = SDL_LoadBMP("assets/Tiles/water_bloc.bmp");
+    loadPersoImages(&persos);
+
     fprintf(stdout, "Chargement des tiles\n");
+    loadTiles(&blocs);
+
     perso_actuel = persos[0][DROITE];
+
     /// C89
+    fprintf(stdout, "Creation des variables de jeu\n");
     int continuer = 1;
     short bloc_courant = VIDE;
     char se_deplace = FALSE;
@@ -44,7 +38,6 @@ void jouer(SDL_Surface *ecran)
     char direction = DROITE;
     short state_deplacement = 0;
     char niveau[MAP_WIDTH][MAP_HEIGHT] = {0};
-    fprintf(stdout, "Creation des variables de jeu\n");
 
     /// on regarde si on doit créer une carte ou pas
     FILE* lire_carte = NULL;
@@ -73,7 +66,7 @@ void jouer(SDL_Surface *ecran)
                 continuer = 0;
                 break;
 
-            case SDL_MOUSEBUTTONDOWN:
+            case SDL_MOUSEBUTTONUP:
                 /// gestion du clic
                 if(event.button.button == SDL_BUTTON_LEFT)
                 {
@@ -107,30 +100,6 @@ void jouer(SDL_Surface *ecran)
                         jump = TRUE;
                         break;
 
-                    case SDLK_0:
-                        bloc_courant = VIDE;
-                        break;
-
-                    case SDLK_1:
-                        bloc_courant = DIRT;
-                        break;
-
-                    case SDLK_2:
-                        bloc_courant = COIN_BLOC;
-                        break;
-
-                    case SDLK_3:
-                        bloc_courant = GRASS;
-                        break;
-
-                    case SDLK_4:
-                        bloc_courant = LAVA;
-                        break;
-
-                    case SDLK_5:
-                        bloc_courant = WATER;
-                        break;
-
                     default:
                         break;
                 }
@@ -153,6 +122,48 @@ void jouer(SDL_Surface *ecran)
                             se_deplace = FALSE;
                             break;
 
+                        case SDLK_0:
+                        case SDLK_KP0:
+                            bloc_courant = VIDE;
+                            fprintf(stdout, "Prend du vide\n");
+                            break;
+
+                        case SDLK_1:
+                        case SDLK_KP1:
+                            bloc_courant = DIRT;
+                            fprintf(stdout, "Prend de la terre\n");
+                            break;
+
+                        case SDLK_2:
+                        case SDLK_KP2:
+                            bloc_courant = COIN_BLOC;
+                            fprintf(stdout, "Prend un coin bloc\n");
+                            break;
+
+                        case SDLK_3:
+                        case SDLK_KP3:
+                            bloc_courant = GRASS;
+                            fprintf(stdout, "Prend de l'herbe\n");
+                            break;
+
+                        case SDLK_4:
+                        case SDLK_KP4:
+                            bloc_courant = LAVA;
+                            fprintf(stdout, "Prend de la lave\n");
+                            break;
+
+                        case SDLK_5:
+                        case SDLK_KP5:
+                            bloc_courant = WATER;
+                            fprintf(stdout, "Prend de l'eau\n");
+                            break;
+
+                        case SDLK_6:
+                        case SDLK_KP6:
+                            bloc_courant = STONE;
+                            fprintf(stdout, "Prend de la pierre\n");
+                            break;
+
                         default:
                             break;
                     }
@@ -172,7 +183,7 @@ void jouer(SDL_Surface *ecran)
         {
             /// saut du personnage
             position_relative.y = (-0.04 * (position_relative.x * position_relative.x));
-            position_perso->y = position_perso->y - position_relative.y;
+            position_perso.y = position_perso.y - position_relative.y;
             if(position_relative.y == 0)
                 jump = FALSE;
         }
@@ -195,6 +206,9 @@ void jouer(SDL_Surface *ecran)
         /// actualisation de l'écran
         SDL_Flip(ecran);
     }
+
+    fprintf(stdout, "Sauvegarde de la carte\n");
+    sauvegarderNiveau(niveau);
 
     fprintf(stdout, "FreeSurface\n");
     /// on free toutes les surfaces

@@ -223,32 +223,43 @@
 	"niveau.h"
 	"constantes.h"
 
-1459960505 source:h:\git\wilanda\jeu.c
+1459963745 source:h:\git\wilanda\jeu.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
 	"constantes.h"
 	"niveau.h"
+	"assets.h"
 	"jeu.h"
 
-1459958711 h:\git\wilanda\constantes.h
+1459962250 h:\git\wilanda\constantes.h
 
-1430996691 h:\git\wilanda\niveau.h
+1459963707 h:\git\wilanda\niveau.h
 	"constantes.h"
 
 1459959048 h:\git\wilanda\jeu.h
 
-1459958883 source:h:\git\wilanda\niveau.c
+1459963708 source:h:\git\wilanda\niveau.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
 	"niveau.h"
 	"constantes.h"
 
-1459960315 source:h:\git\wilanda\main.c
+1459961270 source:h:\git\wilanda\main.c
 	<stdlib.h>
 	<stdio.h>
 	<SDL/SDL.h>
 	"constantes.h"
 	"jeu.h"
+
+1459963266 source:h:\git\wilanda\assets.c
+	<stdlib.h>
+	<stdio.h>
+	<SDL/SDL.h>
+	"assets.h"
+	"constantes.h"
+
+1459963270 h:\git\wilanda\assets.h
+	"constantes.h"
 
