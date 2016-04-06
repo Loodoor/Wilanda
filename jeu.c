@@ -14,10 +14,11 @@ void jouer(SDL_Surface *ecran)
     SDL_Surface *persos[4][2];
     SDL_Surface *blocs[6];
     SDL_Surface *perso_actuel;
-    SDL_Rect position_perso;
+    SDL_Rect *position_perso;
     SDL_Rect position_relative;
-    position_perso.x = 0;
-    position_perso.y = 0;
+    position_perso->x = 0;
+    position_perso->y = 0;
+    fprintf(stdout, "Creation des surfaces et des rect\n");
     persos[0][GAUCHE] = SDL_LoadBMP("assets/Personnage/LEFT/normal.bmp");
     persos[1][GAUCHE] = SDL_LoadBMP("assets/Personnage/LEFT/start.bmp");
     persos[2][GAUCHE] = SDL_LoadBMP("assets/Personnage/LEFT/middle.bmp");
@@ -26,14 +27,16 @@ void jouer(SDL_Surface *ecran)
     persos[1][DROITE] = SDL_LoadBMP("assets/Personnage/RIGHT/start.bmp");
     persos[2][DROITE] = SDL_LoadBMP("assets/Personnage/RIGHT/middle.bmp");
     persos[3][DROITE] = SDL_LoadBMP("assets/Personnage/RIGHT/end.bmp");
+    fprintf(stdout, "Chargement du personnage\n");
     blocs[VIDE] = SDL_LoadBMP("assets/Tiles/air.bmp");
     blocs[DIRT] = SDL_LoadBMP("assets/Tiles/sand_bloc.bmp");
     blocs[COIN_BLOC] = SDL_LoadBMP("assets/Tiles/coin_bloc.bmp");
     blocs[GRASS] = SDL_LoadBMP("assets/Tiles/grass_bloc.bmp");
     blocs[LAVA] = SDL_LoadBMP("assets/Tiles/lava_bloc.bmp");
     blocs[WATER] = SDL_LoadBMP("assets/Tiles/water_bloc.bmp");
+    fprintf(stdout, "Chargement des tiles\n");
     perso_actuel = persos[0][DROITE];
-    ///C89
+    /// C89
     int continuer = 1;
     short bloc_courant = VIDE;
     char se_deplace = FALSE;
@@ -41,16 +44,19 @@ void jouer(SDL_Surface *ecran)
     char direction = DROITE;
     short state_deplacement = 0;
     char niveau[MAP_WIDTH][MAP_HEIGHT] = {0};
+    fprintf(stdout, "Creation des variables de jeu\n");
 
     /// on regarde si on doit créer une carte ou pas
     FILE* lire_carte = NULL;
     lire_carte = fopen("assests/Maps/map.txt", "r");
     if (lire_carte == NULL)
     {
+        fprintf(stdout, "Creation du niveau\n");
         creerNiveau(niveau);
     }
     else
     {
+        fprintf(stdout, "Lecture de la carte\n");
         fclose(lire_carte);
         chargerNiveau(niveau);
     }
@@ -71,8 +77,10 @@ void jouer(SDL_Surface *ecran)
                 /// gestion du clic
                 if(event.button.button == SDL_BUTTON_LEFT)
                 {
+                    fprintf(stdout, "Pose un bloc\n");
                     poser_bloc(event.button.x, event.button.y, niveau, bloc_courant);
                 }
+                break;
 
             case SDL_KEYDOWN:
                 /// gestions des touches
@@ -94,7 +102,7 @@ void jouer(SDL_Surface *ecran)
 
                     case SDLK_SPACE:
                         if(!jump)
-                            position_relative.y = (-0.04 * (position_relative.x * position_relative.x) + 100);
+                            position_relative.y = (-0.04 * (position_relative.x * position_relative.x));
                         se_deplace = TRUE;
                         jump = TRUE;
                         break;
@@ -152,7 +160,8 @@ void jouer(SDL_Surface *ecran)
 
                 default:
                     break;
-        }
+        } /// fin de la gestion événements
+
         if(jump == FALSE)
         {
             /// gravité active sur le personnage
@@ -162,8 +171,8 @@ void jouer(SDL_Surface *ecran)
         else if(jump == TRUE)
         {
             /// saut du personnage
-            position_relative.y = (-0.04 * (position_relative.x * position_relative.x) + 100);
-            position_perso.y = position_perso.y - position_relative.y;
+            position_relative.y = (-0.04 * (position_relative.x * position_relative.x));
+            position_perso->y = position_perso->y - position_relative.y;
             if(position_relative.y == 0)
                 jump = FALSE;
         }
@@ -187,6 +196,7 @@ void jouer(SDL_Surface *ecran)
         SDL_Flip(ecran);
     }
 
+    fprintf(stdout, "FreeSurface\n");
     /// on free toutes les surfaces
     for (int i=0; i < 2; i++)
     {

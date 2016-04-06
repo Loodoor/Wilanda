@@ -14,18 +14,25 @@ void creerNiveau(char niveau[][MAP_HEIGHT])
         for(int j=0; j < MAP_HEIGHT; j++)
         {
             niveau[i][j] = VIDE;
+
             if(j == MAP_HEIGHT - 4)
                 niveau[i][j] = GRASS;
+
             if (j >= MAP_HEIGHT - 3)
                 niveau[i][j] = DIRT;
+
             if(j == 0 && i % 5 == 0)
                 niveau[i][j] = LAVA;
         }
     }
+
+    fprintf(stdout, "Enregistrement de la carte\n");
+
     /// on enregistre la carte !
     char caractere = "0";
     FILE* ecrire_carte = NULL;
     ecrire_carte = fopen("assets/Maps/map.txt", "w");
+
     for(int k=0; k < MAP_WIDTH; k++)
     {
         for(int l=0; l < MAP_HEIGHT; l++)
@@ -134,6 +141,6 @@ void gravity_fall(SDL_Rect *position, char niveau[][MAP_HEIGHT])
 {
     int case_x = position->x / TILE_SIZE;
     int case_y = position->y / TILE_SIZE;
-    if (niveau[case_x][case_y + 2] == VIDE)
+    if (niveau[case_x][case_y + PERSONNAGE_HEIGHT_CASE] == VIDE)
         position->y += TILE_SIZE;
 }

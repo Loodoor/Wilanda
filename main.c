@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     position.x = 0;
     position.y = 0;
     /// C89
-    int continuer = 1;
+    int continuer_menu = 1;
 
     /// l'ecran
     SDL_WM_SetIcon(SDL_LoadBMP("assets/Window/icone.bmp"), NULL);
@@ -32,7 +32,8 @@ int main(int argc, char *argv[])
     }
     /// sinon, tout va bien :D
     /// titre
-    SDL_WM_SetCaption("Ma super fenêtre SDL !", NULL);
+    fprintf(stdout, "Creation de la fenetre\n");
+    SDL_WM_SetCaption("Wilanda", NULL);
 
     /// création des surfaces
     rectangle = SDL_CreateRGBSurface(SDL_HWSURFACE, 220, 180, 32, 0, 0, 0, 0);
@@ -45,7 +46,7 @@ int main(int argc, char *argv[])
     SDL_EnableKeyRepeat(100, 100);
 
     /// boucle
-    while (continuer)
+    while (continuer_menu)
     {
         /// gestion des événements
         SDL_PollEvent(&event);
@@ -53,7 +54,7 @@ int main(int argc, char *argv[])
         {
             case SDL_QUIT:
                 /// on a fait la croix, on quitte
-                continuer = 0;
+                continuer_menu = 0;
                 break;
 
             case SDL_KEYDOWN:
@@ -61,17 +62,21 @@ int main(int argc, char *argv[])
                 switch(event.key.keysym.sym)
                 {
                     case SDLK_ESCAPE:
-                        continuer = 0;
+                        continuer_menu = 0;
                         break;
 
-                    case SDLK_j:
+                    default:
+                        fprintf(stdout, "Lancement du jeu\n");
                         jouer(ecran);
                         break;
                 }
                 break;
+
+                default:
+                    break;
         }
 
-        ///affichage des éléments à l'écran
+        /// affichage des éléments à l'écran
         SDL_BlitSurface(rectangle, NULL, ecran, &position);
 
         /// actualisation de l'écran
